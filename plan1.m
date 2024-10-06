@@ -1,6 +1,6 @@
 
     % 定义参数
-    k_H = 1; % 示例值
+    k_H = 15; % 示例值
     k_dot_H = 1; % 示例值
     S_ref = 0.45; 
     m = 300; 
@@ -17,11 +17,11 @@
     ts=10;
 
     % 求解
-    y = zeros(7, 100/ts);
+    y = zeros(7, ts/dt);
     y(:,1) = init_conditions;
     dydt = zeros(7, 1);
-    for i=1:ts/dt-1
-
+    i=1;
+    while(y(3,i)<9100 && y(1,i)>0)
         C_x = 0.2 + 0.005 * rad2deg(y(6,i))^2;
         C_y = 0.25 * rad2deg(y(6,i)) + 0.05 * rad2deg(y(5,i));
         q = dynamic_pressure(y(4,i), y(1,i));
@@ -34,10 +34,15 @@
         dydt(3) = y(1,i) * cos(y(2,i)); % dx/dt
         dydt(4) = y(1,i) * sin(y(2,i)); % dy/dt
         y(5,i+1) = k_H * (y(7,i) - y(4,i)) ; %delta_z
-        dydt(6) = 0.24 * y(5,i); %alpha
+        if y(5,i+1)>deg2rad(15)
+            y(5,i+1) = deg2rad(15);
+        elseif y(5,i+1)<deg2rad(15)
+            y(5,i+1) = -deg2rad(15);
+        end
+        y(6,i+1) = 0.24 * y(5,i); %alpha
         y(7,i+1) = 2000 * cos(0.000314 * 1.1 * y(3,i)) + 5000; %H*
         y(1:4,i+1) = y(1:4,i) + dt*dydt(1:4); %积分
-        y(6,i+1) = y(6,i) + dt*dydt(6);
+        i=i+1;
     end
     % 结果可视化
     figure;
