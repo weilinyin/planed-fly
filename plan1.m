@@ -1,4 +1,6 @@
-
+function y=plan1(init_conditions)
+% [V; theta; x; y; delta_z; alpha; H*]
+%
     % 定义参数
     k_H = 1; % 示例值
     k_dot_H = 1; % 示例值
@@ -7,9 +9,6 @@
     g = 9.81; 
     P = 0; 
     
-    %初始条件
-    init_conditions = [300; 0; 0; 7000; 0; 0 ;7000]; 
-                    % [V; theta; x; y; delta_z; alpha; H*]
 
     %步长
     dt=0.01;
@@ -42,11 +41,5 @@
         y(1:4,i+1) = y(1:4,i) + dt*dydt(1:4); %积分
         i=i+1;
     end
-    % 结果可视化
-    figure;
-    plot(y(3, :), y(4, :)); % xy图
-    xlabel('X (m)');
-    ylabel('Y (m)');
-    title('X vs Y');
-
+end
 
