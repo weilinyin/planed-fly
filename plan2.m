@@ -13,7 +13,7 @@ function y=plan2(init_conditions)
     dt=0.01;
 
     % 求解
-    y = zeros(8, 8108);
+    y = zeros(8, 8026);
     y(:,1) = init_conditions;
     dydt = zeros(8, 1);
     i=1;
@@ -34,7 +34,7 @@ function y=plan2(init_conditions)
         dydt(8) = -0.46;
         if y(5,i+1)>deg2rad(15)
             y(5,i+1) = deg2rad(15);
-        elseif y(5,i+1)<deg2rad(15)
+        elseif y(5,i+1)<-deg2rad(15)
             y(5,i+1) = -deg2rad(15);
         end
         y(6,i+1) = 0.24 * y(5,i); %alpha

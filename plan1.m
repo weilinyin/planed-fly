@@ -13,7 +13,7 @@ function y=plan1(init_conditions)
     dt=0.01;
 
     % 求解
-    y = zeros(8, 4680);
+    y = zeros(8, 4579);
     y(:,1) = init_conditions;
     dydt = zeros(8, 1);
     i=1;
@@ -33,7 +33,7 @@ function y=plan1(init_conditions)
         y(5,i+1) = k_H * (y(7,i) - y(4,i)) + k_dot_H * (y(7,i+1)-y(7,i)-dydt(4)) ; %delta_z
         if y(5,i+1)>deg2rad(15)
             y(5,i+1) = deg2rad(15);
-        elseif y(5,i+1)<deg2rad(15)
+        elseif y(5,i+1)<-deg2rad(15)
             y(5,i+1) = -deg2rad(15);
         end
         y(6,i+1) = 0.24 * y(5,i); %alpha
