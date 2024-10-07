@@ -1,4 +1,13 @@
 y1 = plan1([300; 0; 0; 7000; 0; 0 ;7000; 300]);
 y2 = plan2(y1(:,end));
 y3 = plan3(y2(:,end));
+figure;
 plot([y1(3,:),y2(3,:),y3(3,:)],[y1(4,:),y2(4,:),y3(4,:)]);
+xlabel('x(m)');
+ylabel('y(m)');
+title('弹道轨迹图');
+figure;
+plot([y1(1,:),y2(1,:),y3(1,:)]);
+xlabel('time(s)');
+ylabel('velocity(m)');
+title('速度时间图');

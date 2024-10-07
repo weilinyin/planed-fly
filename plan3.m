@@ -13,7 +13,7 @@ function y=plan3(init_conditions)
     dt=0.01;
 
     % 求解
-    y = zeros(8, 4680);
+    y = zeros(8, 4116);
     y(:,1) = init_conditions;
     dydt = zeros(8, 1);
     i=1;
