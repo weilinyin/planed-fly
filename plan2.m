@@ -3,7 +3,7 @@ function y=plan2(init_conditions)
 %
     % 定义参数
     k_H = 1; % 示例值
-    k_dot_H = 1; % 示例值
+    k_dot_H = -10; % 示例值
     S_ref = 0.45; 
     g = 9.81; 
     P = 2000; 
@@ -13,7 +13,7 @@ function y=plan2(init_conditions)
     dt=0.01;
 
     % 求解
-    y = zeros(8, 4680);
+    y = zeros(8, 8108);
     y(:,1) = init_conditions;
     dydt = zeros(8, 1);
     i=1;
@@ -31,6 +31,7 @@ function y=plan2(init_conditions)
         dydt(4) = y(1,i) * sin(y(2,i)); % dy/dt
         y(7,i+1) = 3050; %H*
         y(5,i+1) = k_H * (y(7,i) - y(4,i)) + k_dot_H * dydt(4) ; %delta_z
+        dydt(8) = -0.46;
         if y(5,i+1)>deg2rad(15)
             y(5,i+1) = deg2rad(15);
         elseif y(5,i+1)<deg2rad(15)
@@ -38,6 +39,7 @@ function y=plan2(init_conditions)
         end
         y(6,i+1) = 0.24 * y(5,i); %alpha
         y(1:4,i+1) = y(1:4,i) + dt*dydt(1:4); %积分
+        y(8,i+1)= y(8,i) + dt*dydt(8);
         i=i+1;
     end
 end
