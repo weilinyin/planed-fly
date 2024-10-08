@@ -8,6 +8,6 @@ ylabel('y(m)');
 title('弹道轨迹图');
 figure;
 plot([y1(1,:),y2(1,:),y3(1,:)]);
-xlabel('time(s)');
+xlabel('time(0.01s)');
 ylabel('velocity(m)');
 title('速度时间图');
